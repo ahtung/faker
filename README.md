@@ -78,7 +78,7 @@ Faker::Address.longitude #=> "-156.65548382095133"
 ```ruby
 
 Faker::Bitcoin.address #=> "1HUoGjmgChmnxxYhz87YytV4gVjfPaExmh"
-Faker::Bitcoin.testnet_address #=> ""msHGunDvoEwmVFXvd2Bub1SNw5RP1YHJaf""
+Faker::Bitcoin.testnet_address #=> "msHGunDvoEwmVFXvd2Bub1SNw5RP1YHJaf"
 
 ```
 
@@ -270,7 +270,7 @@ Faker::Internet.slug('foo bar', '-') #=> "foo-bar"
 
 Faker::Lorem.word #=> "repellendus"
 
-# Optional arguments: num=3, supplemental=false
+# Optional arguments: num=3, supplemental=false (words from a supplementary list of Lorem-like words)
 Faker::Lorem.words #=> ["dolores", "adipisci", "nesciunt"]
 Faker::Lorem.words(4) #=> ["culpa", "recusandae", "aut", "omnis"]
 Faker::Lorem.words(4, true) #=> ["colloco", "qui", "vergo", "deporto"]
@@ -310,17 +310,19 @@ Faker::Lorem.paragraphs(1, true) #=> ["Depulso animi cunctatio amicitia adficio.
 
 ```ruby
 
-Faker::Name.name #=> "Tyshawn Johns Sr."
+Faker::Name.name             #=> "Tyshawn Johns Sr."
 
-Faker::Name.first_name #=> "Kaci"
+Faker::Name.name_with_middle #=> "Aditya Elton Douglas"
 
-Faker::Name.last_name #=> "Ernser"
+Faker::Name.first_name       #=> "Kaci"
 
-Faker::Name.prefix #=> "Mr."
+Faker::Name.last_name        #=> "Ernser"
 
-Faker::Name.suffix #=> "IV"
+Faker::Name.prefix           #=> "Mr."
 
-Faker::Name.title #=> "Legacy Creative Director"
+Faker::Name.suffix           #=> "IV"
+
+Faker::Name.title            #=> "Legacy Creative Director"
 
 ```
 
@@ -444,15 +446,16 @@ Faker::PhoneNumber.extension #=> "3764"
 Faker::Time.between(DateTime.now - 1, DateTime.now) #=> "2014-09-18 12:30:59 -0700"
 
 # Random date between dates (within specified part of the day)
-# You can install the active_support gem to facilitate time manipulation like 45.minutes + 2.hours
-require "as-duration"
-Faker::Time.between(2.days.ago, Time.now, :all) #=> "2014-09-19 07:03:30 -0700"
-Faker::Time.between(2.days.ago, Time.now, :day) #=> "2014-09-18 16:28:13 -0700"
-Faker::Time.between(2.days.ago, Time.now, :night) #=> "2014-09-20 19:39:38 -0700"
-Faker::Time.between(2.days.ago, Time.now, :morning) #=> "2014-09-19 08:07:52 -0700"
-Faker::Time.between(2.days.ago, Time.now, :afternoon) #=> "2014-09-18 12:10:34 -0700"
-Faker::Time.between(2.days.ago, Time.now, :evening) #=> "2014-09-19 20:21:03 -0700"
-Faker::Time.between(2.days.ago, Time.now, :midnight) #=> "2014-09-20 00:40:14 -0700"
+# You can install the as-duration gem to facilitate time manipulation like 45.minutes + 2.hours
+# (not needed if you already have activesupport, which is included with Rails)
+require 'as-duration'
+Faker::Time.between(2.days.ago, Date.today, :all) #=> "2014-09-19 07:03:30 -0700"
+Faker::Time.between(2.days.ago, Date.today, :day) #=> "2014-09-18 16:28:13 -0700"
+Faker::Time.between(2.days.ago, Date.today, :night) #=> "2014-09-20 19:39:38 -0700"
+Faker::Time.between(2.days.ago, Date.today, :morning) #=> "2014-09-19 08:07:52 -0700"
+Faker::Time.between(2.days.ago, Date.today, :afternoon) #=> "2014-09-18 12:10:34 -0700"
+Faker::Time.between(2.days.ago, Date.today, :evening) #=> "2014-09-19 20:21:03 -0700"
+Faker::Time.between(2.days.ago, Date.today, :midnight) #=> "2014-09-20 00:40:14 -0700"
 
 # Random time in the future (up to maximum of N days)
 Faker::Time.forward(23, :morning) # => "2014-09-26 06:54:47 -0700"
@@ -484,6 +487,19 @@ Faker::Hacker.verb  #=> "bypass"
 
 # Verbs that end in -ing
 Faker::Hacker.ingverb #=> "synthesizing"
+```
+
+###Faker::Crypto
+---------------------
+
+```ruby
+
+Faker::Crypto.md5 #=> "6b5ed240042e8a65c55ddb826c3408e6"
+
+Faker::Crypto.sha1 #=> "4e99e31c51eef8b2d290e709f757f92e558a503f"
+
+Faker::Crypto.sha256 #=> "51e4dbb424cd9db1ec5fb989514f2a35652ececef33f21c8dd1fd61bb8e3929d"
+
 ```
 
 ###Faker::App
